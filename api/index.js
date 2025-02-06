@@ -20,3 +20,7 @@ const app  = express();
 app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`);   
 });
+<<<<<<< HEAD
+=======
+
+>>>>>>> c0a048c1d244d0db57b86347e442686953526d87
