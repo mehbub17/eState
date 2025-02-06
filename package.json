@@ -1,35 +1,12 @@
 {
-<<<<<<< HEAD
-    "name": "estate",
-    "version": "1.0.0",
-    "main": "index.js",
-    "type": "module",
-    "scripts": {
-        "dev": "nodemon api/index.js",
-        "start": "node api/index.js"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "description": "",
-    "dependencies": {
-        "dotenv": "^16.4.7",
-        "express": "^4.21.2",
-        "mongoose": "^8.10.0"
-    },
-    "devDependencies": {
-        "nodemon": "^3.1.9"
-    }
-=======
   "name": "estate",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "dev": "nodemon api/index.js",
-    "start": "node api/index.js"
+    "start": "node index.js"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
@@ -41,5 +18,4 @@
   "devDependencies": {
     "nodemon": "^3.1.9"
   }
->>>>>>> c0a048c1d244d0db57b86347e442686953526d87
 }
