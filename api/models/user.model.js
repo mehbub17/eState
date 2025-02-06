@@ -1,7 +1,6 @@
-import e from "express";
-import { Schema,Mongoose } from "mongoose";
+import mongoose from "mongoose";
 
-const UserSchema = new Schema({
+const UserSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
@@ -21,6 +20,6 @@ const UserSchema = new Schema({
 });
 
 
-const User =  Mongoose.model('User', UserSchema);
+const User =  mongoose.model('User', UserSchema);
 
 export default User;
