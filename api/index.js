@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import process from 'process';
 import dotenv from 'dotenv';
+import userRouter from './routes/user.route.js';
 
 
 dotenv.config();
@@ -13,10 +14,13 @@ const connectDB = async () => {
         console.log(`Error: ${error.message}`);
     }
 }
+
 connectDB();
-
 const app  = express();
-
 app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`);   
 });
+
+
+app.use('/api/user', userRouter);
+
