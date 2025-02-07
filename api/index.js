@@ -14,21 +14,17 @@ const connectDB = async () => {
         console.log(`MongoDB Connected`);
     } catch (error) {
         console.error(`Error: ${error.message}`);
-        process.exit(1); // Exit process if MongoDB fails to connect
+        process.exit(1);
     }
 };
-
-// Start the connection before running the server
 connectDB();
 
 const PORT = process.env.PORT || 5000;
 const app = express();
 
-// Middleware should be used before defining routes
 app.use(cors());
 app.use(express.json());
 
-// Define routes after middleware
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
 
@@ -43,7 +39,6 @@ app.use((err, req, res, next) => {
     });
 });
 
-// Start server after everything is set up
 app.listen(PORT, () => {
     console.log(`Server running on port:${PORT}`);
 });
