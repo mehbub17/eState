@@ -26,23 +26,23 @@ export const signin = async (req, res,next) => {
     const {email,password} = req.body;
 
     try {
-        const user = await User.findOne({            
+        const user_valid = await User.findOne({            
             email
         });
 
-        if(!user){
+        if(!user_valid){
             return next(errorHandler(404,'User not found'));
         }
-        const isMatch = bcryptjs.compareSync(password,user.password);
+        const isMatch = bcryptjs.compareSync(password,user_valid.password);
 
         if(!isMatch){
-            return next(errorHandler(401,'Wrong credentials!'));
+            return next(errorHandler(401,'Invalid credentials!'));
         }
 
-        const token = jwt.sign({id:user._id},process.env.JWT_SECRET);
-        const {password:pass,...rest} = user._doc;
+        const token = jwt.sign({id:user_valid._id},process.env.JWT_SECRET);
+        const {password:pass,...rest} = user_valid._doc;
 
-        res.cookie('token',token,{httpOnly:true,expiresIn: '7d'})
+        res.cookie('access_token',token,{httpOnly:true,expiresIn: '7d'})
         .status(200)
         .json({user:rest});
 

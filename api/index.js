@@ -16,9 +16,10 @@ const connectDB = async () => {
         console.log(`Error: ${error.message}`);
     }
 }
+connectDB();
 const PORT = process.env.PORT || 5000;
 
-connectDB();
+
 const app  = express();
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);   
@@ -33,12 +34,10 @@ app.use('/api/auth', authRouter);
 // path to middleware
 app.use((err,req,res,next) => {
     const statusCode = err.statusCode || 500;
-    const  message = err.statusCode || 'Internal Server Error';
-    res.status(statusCode).send({
+    const  message = err.message || 'Internal Server Error';
+    return res.status(statusCode).json({
         success:false,
-        statusCode,
-        message,
-        
-        
+        statusCode:statusCode,
+        message:message  
     });
 });
