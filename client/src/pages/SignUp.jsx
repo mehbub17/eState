@@ -1,13 +1,11 @@
 import { Link,useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
+import OAuth from '../components/OAuth.jsx';
 
 
 function SignUp() {
 
   const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
   });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -20,6 +18,14 @@ function SignUp() {
       [e.target.id]: e.target.value,
     })
   };
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setError(null);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
 
   console.log(formData);
   const handleSubmit = async (e) => {
@@ -60,6 +66,7 @@ function SignUp() {
         <input type='password' placeholder='password'
         className='border p-3 rounded-lg' id='password' onChange={handleChange}/>
         <button disabled={loading}className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-60 disabled:opacity-75'>{loading?'Loading':'Sign UP'}</button>
+        <OAuth />
       </form>
       <div className='flex gap2 mt-5'>
         <p>Have an account?</p>
@@ -69,6 +76,7 @@ function SignUp() {
       </div>
 
       {error && <p className='text-red-500 mt-3'>{error}</p>}
+      
     </div>
   )
 }

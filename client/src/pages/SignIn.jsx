@@ -1,6 +1,7 @@
 import { Link,useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import OAuth from '../components/OAuth.jsx';
 
 import { signInStart,
   signInFailure,
@@ -10,12 +11,12 @@ import { signInStart,
 function SignIn() {
 
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
   });
   const {loading,error} = useSelector((state)=> state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  
 
   const handleChange = (e) => {
     
@@ -52,6 +53,15 @@ function SignIn() {
   
   };
 
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        dispatch(signInFailure(null)); // Clear error after 5 seconds
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [error, dispatch]);
+
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl text-center font-semibold my-7'>Sign In</h1>
@@ -61,6 +71,8 @@ function SignIn() {
         <input type='password' placeholder='password'
         className='border p-3 rounded-lg' id='password' onChange={handleChange}/>
         <button disabled={loading}className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-60 disabled:opacity-75'>{loading?'Loading':'Sign In'}</button>
+        <OAuth/>
+
       </form>
       <div className='flex gap2 mt-5'>
         <p>New User?</p>
